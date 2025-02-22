@@ -1,0 +1,8 @@
+{
+  "name": "gopool",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

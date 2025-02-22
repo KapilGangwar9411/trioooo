@@ -1,0 +1,96 @@
+<!-- src/app/sign-in/sign-in.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg_color">
+  <div>
+    <div class="logo ion-text-center">
+      <img src="assets/images/logo.png" class="animate__animated animate__zoomInUp" />
+    </div>
+
+    <div class="banner animate__animated animate__fadeInUp">
+      <img src="assets/images/sign_img.png" />
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border animate__animated animate__fadeInUp">
+  <div class="form">
+    <h2 class="ion-text-center">{{ 'sign_in_now' | translate }}</h2>
+
+    <ion-list lines="none">
+      <ion-item class="animate__animated animate__fadeInUp" lines="none">
+        <div class="item_inner">
+          <ion-label style="margin-bottom: 5px !important;">Country</ion-label>
+          <div class="input_box d-flex">
+            <div class="fixed-country">
+              <img src="assets/images/india.png" class="country-flag" />
+              India (+91)
+            </div>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="animate__animated animate__fadeInUp" lines="none">
+        <div class="item_inner">
+          <ion-label style="margin-bottom:5px !important;">{{ 'phone_number' | translate }}</ion-label>
+          <ion-input
+            mode="md"
+            type="tel"
+            placeholder="{{ 'enter_mobile_number' | translate }}"
+            [(ngModel)]="phoneNumber"
+            (ionInput)="onPhoneNumberChange($event)"
+            maxlength="13"
+          ></ion-input>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <!-- ReCAPTCHA container -->
+    <div id="sign-in-button"></div>
+
+    <ion-button
+      size="large"
+      class="btn animate__animated animate__fadeInUp"
+      expand="round"
+      (click)="continue(phoneNumber)"
+      [disabled]="!isValidNumber"
+    >
+      {{ 'continue' | translate }}
+    </ion-button>
+  </div>
+
+  <div class="social_login animate__animated animate__fadeInUp">
+    <h3 class="ion-text-center">{{ 'or_continue_with' | translate }}</h3>
+    <div class="button_container d-flex">
+      <ion-row>
+        <ion-col size="6">
+          <ion-button
+            size="large"
+            expand="full"
+            class="btn"
+            (click)="signInWithFacebook()"
+          >
+            <ion-icon
+              class="zmdi zmdi-facebook ion-text-start"
+            ></ion-icon
+            >&nbsp; {{ 'facebook' | translate }}
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button
+            size="large"
+            expand="full"
+            class="btn"
+            (click)="signInWithGoogle()"
+          >
+            <ion-icon class="zmdi zmdi-google ion-text-start"></ion-icon
+            >&nbsp;&nbsp; {{ 'google' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-footer>
