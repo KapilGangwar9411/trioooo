@@ -11,6 +11,11 @@ workflows:
         script: |
           npm install --legacy-peer-deps
 
+      - name: Add iOS platform
+        script: |
+          ionic cordova platform rm ios || true
+          ionic cordova platform add ios
+
       - name: Build iOS app
         script: |
           ionic cordova build ios --prod --release
@@ -22,4 +27,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - kapilgangwar9917@gmail.com  # Update this with your preferred email
+          - kapilgangwar9917@gmail.com
