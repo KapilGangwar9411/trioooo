@@ -11,10 +11,12 @@ workflows:
         script: |
           npm install --legacy-peer-deps
 
-      - name: Add iOS platform
+      - name: Clean and add iOS platform
         script: |
-          ionic cordova platform rm ios || true
-          ionic cordova platform add ios
+          if [ -d "./platforms/ios" ]; then
+            ionic cordova platform rm ios || true
+          fi
+          ionic cordova platform add ios --confirm --verbose
 
       - name: Build iOS app
         script: |
