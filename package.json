@@ -17,6 +17,7 @@
     "@angular/common": "^18.0.0",
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
+    "@angular/fire": "^19.0.0",
     "@angular/forms": "^18.0.0",
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
@@ -30,6 +31,7 @@
     "@capacitor/core": "^7.0.1",
     "@capacitor/geolocation": "^7.1.1",
     "@capacitor/haptics": "7.0.0",
+    "@capacitor/ios": "7.0.1",
     "@capacitor/keyboard": "7.0.0",
     "@capacitor/status-bar": "7.0.0",
     "@googlproxer/ion-range-calendar": "^18.0.1",
@@ -68,6 +70,7 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "cordova-ios": "^7.1.1",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
@@ -96,7 +99,8 @@
       "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

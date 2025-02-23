@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-money.page.scss'],
 })
 export class AddMoneyPage implements OnInit {
- 
+
   constructor() { }
 
   ngOnInit() {

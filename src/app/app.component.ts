@@ -28,13 +28,26 @@ export class AppComponent {
     private route: Router, private splashScreen: SplashScreen, private statusBar: StatusBar, private modalController: ModalController,
     private translate: TranslateService, private myEvent: MyEvent, public alertController: AlertController) {
     this.initializeApp();
-    this.myEvent.getLanguageObservable().subscribe(value => {
-      this.navCtrl.navigateRoot(['./']);
-      this.globalize(value);
-    });
   }
 
   initializeApp() {
+    // Get saved language
+    let savedLanguage = window.localStorage.getItem(Constants.KEY_DEFAULT_LANGUAGE);
+    if (savedLanguage) {
+      this.translate.setDefaultLang(savedLanguage);
+      this.translate.use(savedLanguage);
+    } else {
+      // Set default language as English if no saved language
+      this.translate.setDefaultLang('en');
+      this.translate.use('en');
+      window.localStorage.setItem(Constants.KEY_DEFAULT_LANGUAGE, 'en');
+    }
+
+    // Listen for language changes
+    this.myEvent.getLanguageObservable().subscribe(language => {
+      this.translate.use(language);
+    });
+
     if (this.config.demoMode && this.platform.is('cordova') && !window.localStorage.getItem(Constants.KEY_IS_DEMO_MODE)) {
       window.localStorage.setItem(Constants.KEY_IS_DEMO_MODE, "true");
       this.language();

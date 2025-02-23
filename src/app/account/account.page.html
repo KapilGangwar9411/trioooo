@@ -16,16 +16,15 @@
     </ion-toolbar>
 
     <div class="header_banner d-flex">
-
         <div class="text_box" (click)="my_profile()">
-            <h2>Samantha Simth</h2>
+            <h2>{{ userData.fullName || 'User Name' }}</h2>
             <h3 class="d-flex">
                 <ion-icon class="zmdi zmdi-shield-check"></ion-icon>
-                Opus Labworks
+                {{ userData.companyName || 'Company Name' }}
             </h3>
         </div>
         <div class="img_box center_img end" (click)="my_profile()">
-            <img src="assets/images/profiles/user_profile.png" class="crop_img">
+            <img [src]="profileImageUrl" class="crop_img">
         </div>
     </div>
 </ion-header>
@@ -40,7 +39,7 @@
                         <span class="end">
                           $159.50
 <!--                            <ion-icon class="zmdi zmdi-chevron-right ion-text-end"></ion-icon>-->
-                          
+
                           <ion-icon name="chevron-forward-outline" class="ion-text-end"></ion-icon>
                       </span>
                     </h2>
@@ -51,7 +50,7 @@
         </ion-item>
 
         <div class="item_list">
-<!-- 
+<!--
             <ion-item class="animate__animated animate__fadeInUp" (click)="my_vehicles()">
                 <div class="item_inner d-flex">
                     <ion-icon class="zmdi zmdi-car"></ion-icon>
@@ -112,7 +111,7 @@
                 </div>
             </ion-item>
 
-            
+
             <ion-item class="animate__animated animate__fadeInUp" (click)="logout()">
                 <div class="item_inner d-flex">
                     <ion-icon class="zmdi zmdi-power"></ion-icon>

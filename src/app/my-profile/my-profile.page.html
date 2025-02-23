@@ -8,14 +8,15 @@
 
   <div class="header_banner d-flex animate__animated animate__fadeInUp">
       <div class="text_box">
-          <h2>{{'my_profile' | translate}}</h2>
-          <h3>{{'everthing_about_you' | translate}}</h3>
+          <h2>{{ userData.fullName || 'My Profile' }}</h2>
+          <h3>{{ userData.companyName || 'Company Name' }}</h3>
       </div>
       <div class="img_section end d-flex">
           <div class="img_box center_img end">
-              <img src="assets/images/profiles/user_profile.png" class="crop_img">
+              <img [src]="profileImageUrl" class="crop_img">
           </div>
-          <ion-icon class="zmdi zmdi-camera ion-text-center"></ion-icon>
+          <input type="file" #fileInput style="display: none" accept="image/*" (change)="onImageSelect($event)">
+          <ion-icon class="zmdi zmdi-camera ion-text-center" (click)="fileInput.click()"></ion-icon>
       </div>
   </div>
 
@@ -49,7 +50,7 @@
                           <div class="item_inner">
                               <ion-label>{{'cumpany_name' | translate}}</ion-label>
                               <ion-input mode="md" type="name" placeholder="{{'enter_cumpany_name' | translate}}"
-                                  value="Opus Labworks"></ion-input>
+                                  [(ngModel)]="userData.companyName"></ion-input>
                           </div>
                       </ion-item>
                       <ion-item class="animate__animated animate__fadeInUp" lines="none">
@@ -58,7 +59,7 @@
                               <div class="input_box d-flex">
                                   <ion-input mode="md" type="email"
                                       placeholder="{{'enter_corporate_email_address' | translate}}"
-                                      value="samantha@opus.labworks"></ion-input>
+                                      [(ngModel)]="userData.corporateEmail"></ion-input>
                                   <ion-icon class="zmdi zmdi-shield-check ion-text-end end"></ion-icon>
                               </div>
                           </div>
@@ -91,14 +92,14 @@
                           <div class="item_inner">
                               <ion-label>{{'short_bio' | translate}}</ion-label>
                               <ion-input mode="md" type="text" placeholder="{{'enter_your_short_bio' | translate}}"
-                                  value="Jolly, Fun loving, Friendly, Foodie"></ion-input>
+                                  [(ngModel)]="userData.shortBio"></ion-input>
                           </div>
                       </ion-item>
                       <ion-item class="animate__animated animate__fadeInUp" lines="none">
                           <div class="item_inner">
                               <ion-label>{{'hobbies' | translate}}</ion-label>
                               <ion-input mode="md" type="text" placeholder="{{'enter_your_hobbies' | translate}}"
-                                  value="Listening Music, Travelling, Golf"></ion-input>
+                                  [(ngModel)]="userData.hobbies"></ion-input>
                           </div>
                       </ion-item>
                   </ion-card>
@@ -107,7 +108,10 @@
 
           <div class="btn_box">
               <ion-button size="large" class="btn animate__animated animate__fadeInUp"
-                  style="--animate-duration: .4s;" expand="round">{{'continue' | translate}}</ion-button>
+                  style="--animate-duration: .4s;" expand="round"
+                  (click)="updateProfile()">
+                  {{'update' | translate}}
+              </ion-button>
           </div>
       </div>
       <!--   Profile Info section end -->
@@ -121,7 +125,7 @@
                           <div class="item_inner">
                               <ion-label>{{'full_name' | translate}}</ion-label>
                               <ion-input mode="md" type="name" placeholder="{{'enter_full_name' | translate}}"
-                                  value="Samantha Smith" readonly></ion-input>
+                                  [(ngModel)]="userData.fullName"></ion-input>
                           </div>
                       </ion-item>
 
@@ -129,7 +133,7 @@
                           <div class="item_inner">
                               <ion-label>{{'email_address' | translate}}</ion-label>
                               <ion-input mode="md" type="email" placeholder="{{'enter_email_address' | translate}}"
-                                  value="samanthasmith@mail.com" readonly></ion-input>
+                                  [(ngModel)]="userData.email"></ion-input>
                           </div>
                       </ion-item>
 
@@ -137,17 +141,17 @@
                           <div class="item_inner">
                               <ion-label>{{'phone_number' | translate}}</ion-label>
                               <ion-input mode="md" type="text" placeholder="{{'enter_mobile_number' | translate}}"
-                                  value="+1 987 654 3210" readonly></ion-input>
+                                  [(ngModel)]="userData.phone"></ion-input>
                           </div>
                       </ion-item>
                   </ion-card>
               </ion-list>
           </div>
-          <!--
-          <div class="btn_box" (click)="logout()">
-              <ion-button size="large" class="btn animate__animated animate__fadeInUp" expand="round">{{'logout' |
-                  translate}}</ion-button>
-          </div> -->
+          <div class="btn_box">
+              <ion-button size="large" class="btn animate__animated animate__fadeInUp" expand="round" (click)="updateProfile()">
+                  {{'update' | translate}}
+              </ion-button>
+          </div>
       </div>
       <!--   Account Info section end -->
 
@@ -160,7 +164,7 @@
                           <div class="item_inner">
                               <ion-label>{{'vehicle_type' | translate}}</ion-label>
                               <ion-input mode="md" type="name" placeholder="{{'enter_full_name' | translate}}"
-                                  value="Hatchbacks"></ion-input>
+                                  [(ngModel)]="userData.vehicleType"></ion-input>
                           </div>
                       </ion-item>
                       <ion-item class="animate__animated animate__fadeInUp " lines="none ">
@@ -169,7 +173,7 @@
                               <div class="input_box d-flex ">
                                   <ion-input mode="md " type="name "
                                       placeholder="{{ 'enter_vehicle_name' | translate}} "
-                                      value="Toyotal Matrix "></ion-input>
+                                      [(ngModel)]="userData.vehicleName"></ion-input>
                               </div>
                           </div>
                       </ion-item>
@@ -179,7 +183,7 @@
                               <div class="input_box d-flex ">
                                   <ion-input mode="md " type="name "
                                       placeholder="{{ 'enter_vehicle_reg_number' | translate}} "
-                                      value="NYC55142 "></ion-input>
+                                      [(ngModel)]="userData.vehicleReg"></ion-input>
                               </div>
                           </div>
                       </ion-item>
@@ -193,7 +197,7 @@
                               <div class="input_box d-flex ">
                                   <ion-input mode="md " type="text "
                                       placeholder="{{ 'enter_facilities' | translate}} "
-                                      value="AC, Luggage Space, Music System "></ion-input>
+                                      [(ngModel)]="userData.facilities"></ion-input>
                               </div>
                           </div>
                       </ion-item>
@@ -205,16 +209,18 @@
                               <div class="input_box d-flex ">
                                   <ion-input mode="md " type="text "
                                       placeholder="{{ 'enter_intructions' | translate}} "
-                                      value="Smoking Not Allowed, Pets are allowed "></ion-input>
+                                      [(ngModel)]="userData.instructions"></ion-input>
                               </div>
                           </div>
                       </ion-item>
                   </ion-card>
               </ion-list>
           </div>
-          <ion-button size="large" class="btn animate__animated animate__fadeInUp" expand="round">
-              {{'update' | translate}}
-          </ion-button>
+          <div class="btn_box">
+              <ion-button size="large" class="btn animate__animated animate__fadeInUp" expand="round" (click)="updateProfile()">
+                  {{'update' | translate}}
+              </ion-button>
+          </div>
       </div>
       <!--   My Vehicle section end -->
   </swiper-container>

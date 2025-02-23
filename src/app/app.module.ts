@@ -17,14 +17,18 @@ import { APP_CONFIG, BaseAppConfig } from './app.config';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../environments/environment';
 import { SupabaseService } from './services/supabase.service';
+import { getAuth } from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
 
-// Initialize Firebase with the correct config property
-initializeApp(environment.firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(environment.firebaseConfig);
+// Initialize Firebase services
+const auth = getAuth(app);
+const database = getDatabase(app);
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,15 +38,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    TranslateModule,
-    VtPopupPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
-    })
+    }),
+    VtPopupPageModule
   ],
   providers: [
     StatusBar,
@@ -53,4 +56,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule   { }
+export class AppModule {
+  constructor() {
+    // Initialize Firebase
+    initializeApp(environment.firebaseConfig);
+  }
+}
