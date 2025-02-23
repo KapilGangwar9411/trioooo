@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Gopool",
+    "slug": "gopool",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.f7bf51f0-a912-4c1f-a01d-368640257725.gopool"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f7bf51f0-a912-4c1f-a01d-368640257725"
+      }
+    }
+  }
+}
