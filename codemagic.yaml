@@ -1,0 +1,25 @@
+workflows:
+  ios-app:
+    name: iOS Build
+    max_build_duration: 60
+    environment:
+      xcode: latest
+      cocoapods: default
+
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install
+
+      - name: Build iOS app
+        script: |
+          ionic cordova build ios --prod --release
+
+    artifacts:
+      - build/ios/iphoneos/*.ipa
+      - build/ios/iphoneos/*.app
+
+    publishing:
+      email:
+        recipients:
+          - kapilgangwar9917@gmail.com
